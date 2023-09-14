@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"./zoo"
+	"structs/pkg/zoo"
 )
 
 /*
@@ -25,9 +25,6 @@ import (
 16. Assignment
 */
 
-var predatorHead = zoo.Head{Fangs: true}
-var herbivorousHead = zoo.Head{Fangs: false}
-
 var topRightLeg = zoo.Leg{Side: "right", Position: "top"}
 var topLeftLeg = zoo.Leg{Side: "left", Position: "top"}
 var bottomRightLeg = zoo.Leg{Side: "right", Position: "bottom"}
@@ -37,14 +34,12 @@ var Wolf = zoo.Animal{
 	Name: "Wolfie",
 	Type: "wolf",
 	Legs: []zoo.Leg{topRightLeg, topLeftLeg, bottomRightLeg, bottomLeftLeg},
-	Head: predatorHead,
 }
 
 var Sheep = zoo.Animal{
 	Name: "Dolly",
 	Type: "sheep",
 	Legs: []zoo.Leg{topRightLeg, topLeftLeg, bottomRightLeg, bottomLeftLeg},
-	Head: herbivorousHead,
 }
 
 var predatorCage = zoo.Cage{
@@ -60,6 +55,9 @@ var MyZoo = zoo.Zoo{
 }
 
 func main() {
+	Wolf.MakePredator()
+	Sheep.MakeHerbivor()
+
 	fmt.Printf("There are %v cages in zoo:\n", len(MyZoo.Cages))
 	for count, cage := range MyZoo.Cages {
 
@@ -67,7 +65,7 @@ func main() {
 
 		for _, animal := range cage.Animals {
 			fmt.Printf("This is %v named %v\n", animal.Type, animal.Name)
-			if animal.Head.Fangs {
+			if animal.IsPredator() {
 				fmt.Printf("%v is a predator. He has fangs\n", animal.Name)
 			} else {
 				fmt.Printf("%v is a herbivorous.\n", animal.Name)

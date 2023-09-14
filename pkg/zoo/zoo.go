@@ -6,14 +6,14 @@ type Leg struct {
 }
 
 type Head struct {
-	Fangs bool
+	fangs bool
 }
 
 type Animal struct {
+	Head
 	Name string
 	Type string
 	Legs []Leg
-	Head Head
 }
 
 type Cage struct {
@@ -22,4 +22,19 @@ type Cage struct {
 
 type Zoo struct {
 	Cages []*Cage
+}
+
+func (animal Animal) MakePredator() {
+	animal.fangs = true
+}
+func (animal Animal) MakeHerbivor() {
+	animal.fangs = false
+}
+
+func (animal Animal) IsPredator() bool {
+	if animal.fangs {
+		return true
+	} else {
+		return false
+	}
 }
